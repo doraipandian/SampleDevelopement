@@ -19,4 +19,19 @@ let sessData = (req) => {
     }
     return sessionUser;
 }
-module.exports = {sessionValidater, sessData };
+
+let dateTime = (date)=>{
+    const d_t = (date) ? date : new Date();
+    
+    let year = d_t.getFullYear();
+    let month = ("0" + (d_t.getMonth() + 1)).slice(-2);
+    let day = ("0" + d_t.getDate()).slice(-2);
+    let hour = d_t.getHours();
+    let minute = d_t.getMinutes();
+    let seconds = d_t.getSeconds();
+
+    // prints date & time in DD/MM/YYYY HH:MM:SS format
+    return (day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + seconds);
+};
+
+module.exports = {sessionValidater, sessData, dateTime };

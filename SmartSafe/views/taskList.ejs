@@ -26,7 +26,7 @@
                 </thead>
                 <tbody><%
                 for(var i = 0; i < tasks.length; i++) {                     
-                        let date = new Date(tasks[i].createdAt).toDateString();
+                    let date = dateTime( new Date(tasks[i].createdAt));
                     %>
                     <tr>
                         <td><%= i + 1 %></td>

@@ -40,6 +40,9 @@ app.set('view engine', 'ejs');
 // cookie parser middleware
 app.use(cookieParser());
 
+//datetime format func assign to local
+app.locals.dateTime = helper.dateTime;
+
 //server listening 
 app.listen(PORT, ()=> {
     console.log(`Server is running on http://localhost:${PORT}`);
