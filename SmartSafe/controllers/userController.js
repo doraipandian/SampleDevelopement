@@ -1,3 +1,4 @@
+const helper = require('../helper');
 const axios = require('axios');
 
 module.exports.get_users = async (req, res) => {
@@ -8,7 +9,7 @@ module.exports.get_users = async (req, res) => {
           throw new Error("Bad response from server");
       } else{
           //console.log(result.data)
-          res.render('userList',{users:result.data});
+          res.render('userList',{users:result.data, sessdata:helper.sessData(req)});
       }
     })
     .catch(err =>{
@@ -24,7 +25,7 @@ module.exports.get_users_byId = async (req, res) => {
         throw new Error("Bad response from server");
     } else{
         //console.log(result.data)
-        res.render('user',{user:result.data});
+        res.render('user',{user:result.data, sessdata:helper.sessData(req)});
     }
   })
   .catch(err =>{
@@ -34,6 +35,7 @@ module.exports.get_users_byId = async (req, res) => {
 
 module.exports.post_users = async (req, res) => {
 
+    let usertype = (req.body.usertype) ? req.body.usertype : 0;
     // build user 
     let user = {
       username : req.body.username,
@@ -41,7 +43,7 @@ module.exports.post_users = async (req, res) => {
       firstname : req.body.firstname,
       lastname : req.body.lastname,
       email : req.body.email,
-      usertype : req.body.usertype
+      usertype : usertype
     };
     if (req.body.id !== null){
       user.id = req.body.id;
@@ -53,7 +55,11 @@ module.exports.post_users = async (req, res) => {
         throw new Error("Bad response from server");
     } else{
         //console.log(result.data)
-        res.redirect('/users')
+        if (req.session.usertype === 1){
+          res.redirect('/users')
+        } else {
+          res.redirect('/')
+        }
     }
   })
   .catch(err =>{

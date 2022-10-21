@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const helper = require('./helper')
+const path = require('path');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
     cookie: { maxAge: oneDay },
-    resave: false
+    resave: true
 }));
 
 //middleware
@@ -29,6 +30,9 @@ app.use(express.json());
 
 //serving public file
 app.use(express.static(__dirname));
+app.use('/css', express.static(path.resolve(__dirname, "public/css")))
+app.use('/img', express.static(path.resolve(__dirname, "public/img")))
+app.use('/js', express.static(path.resolve(__dirname, "public/js")))
 
 //view engine
 app.set('view engine', 'ejs');
@@ -41,24 +45,36 @@ app.listen(PORT, ()=> {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.use('/login', authRoutes)
 app.use('/', authRoutes)
 
 app.use('/users', helper.sessionValidater, userRoutes)
 
 app.get('/addUser', helper.sessionValidater,(req,res) => {
-    res.render('user',{user:[]});
+    res.render('user',{user:[],sessdata:helper.sessData(req)});
 });
 
 app.use('/tasks', helper.sessionValidater, taskRoutes)
 
 app.get('/addTask', helper.sessionValidater,(req,res) => {
-    res.render('task',{task:[]});
+    res.render('task',{task:[],sessdata:helper.sessData(req)});
 });
 
 app.get('/logout', (req, res) => {    
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/login');
+});
+
+app.get('/session',(req, res) => {
+    //console.log('I am in the session')
+    let id = req.session.userid;
+    let name = req.session.userName;
+    let type = req.session.usertype;
+    
+    res.send(JSON.stringify({id:id,name:name,type:type}));
+});
+
+app.get('/home', (req, res) => {    
+    res.render('home');
 });
 
 //404 page

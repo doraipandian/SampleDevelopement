@@ -25,7 +25,7 @@ a {
 }
 
 .nav-brand{
-    font-size: 1.5em;
+    font-size: .8em;
     font-weight: bold;
 }
 
@@ -219,4 +219,11 @@ table{
 #add_user .form-group .btn:hover{
     background-color: var(--dark);
     color: var(--border);
+}
+
+.app-title {
+    padding: 10px;
+    text-align: center; 
+    background-color:#b5a0fe;
+    color: #fff;
 }

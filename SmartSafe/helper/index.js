@@ -2,6 +2,7 @@
 let sessionValidater = (req, res, next) => {   
     console.log(req.session);
     if (req.session.userid) {
+        res.locals.user = req.session.user;
         console.log('Found User Session');
        next();
     } else {
@@ -10,4 +11,12 @@ let sessionValidater = (req, res, next) => {
     }
 };
 
-module.exports = {sessionValidater };
+let sessData = (req) => {
+    let sessionUser = { 
+        id: req.session.userid,
+        name: req.session.username,
+        type: req.session.usertype
+    }
+    return sessionUser;
+}
+module.exports = {sessionValidater, sessData };

@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         userid: {
             type: DataTypes.SMALLINT
+        },
+        modifiedby: {
+            type: DataTypes.SMALLINT
         }
     } )
     return Task

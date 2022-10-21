@@ -60,4 +60,18 @@ const api_user_get_by_credential = async (req, res)=>{
     }
 };
 
-module.exports = {api_users_get, api_users_post, api_users_get_id, api_user_get_by_credential};
+const api_user_get_by_email = async (req, res)=>{
+    const email = req.params.email;
+    console.log(req.params); 
+    try{
+        let result = await Users.findOne({ where: { email: email }});
+
+        //console.log(JSON.stringify(result));
+        res.send(result);
+    } catch (error) {
+        //console.log(error);        
+        res.status(500).send(error);
+    }
+};
+
+module.exports = {api_users_get, api_users_post, api_users_get_id, api_user_get_by_credential, api_user_get_by_email};
