@@ -3,8 +3,8 @@
     <div class="user-links"><%
         if (sessdata.type === 1){%>
         <!--div id="nav-admin-user"-->
-            <a href="/users" class="nav-brand" style="margin-right:10px;">User</a>
-            <a href="/tasks" class="nav-brand" style="margin-right:10px;">Task</a>
+            <a href="/users" class="nav-brand" style="margin-right:10px;">Users</a>
+            <a href="/tasks" class="nav-brand" style="margin-right:10px;">Tasks</a>
         <!--/div--><%} else {%>
         <!--div id="nav-user"-->
             <a href="/users/<%=sessdata.id%>" class="nav-brand user" style="margin-right:10px;">Profile</a>
