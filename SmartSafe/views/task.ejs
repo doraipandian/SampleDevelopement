@@ -17,11 +17,11 @@ if (task.id){%>
                 <label for="title" class="text-light">Title</label>
                 <input type="hidden" name="id" value="<%=task.id%>">
                 <input type="hidden" name="userid" value="<%=task.userid%>">
-                <input type="text" id="title" name="title" value="<%=task.title%>" placeholder="Title">
+                <input type="text" id="title" name="title" value="<%=task.title%>" required placeholder="Title">
             </div>
             <div class="form-group">
                 <label for="description" class="text-light">Description</label>
-                <textarea id="task" name="task"><%=task.task%></textarea>
+                <textarea id="task" name="task" required><%=task.task%></textarea>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn text-dark update">Save</button>
